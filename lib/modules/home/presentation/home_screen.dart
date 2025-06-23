@@ -8,11 +8,16 @@ import '../../details/state/employees_state.dart';
 import '../../widgets/employee_tile.dart';
 import '../../widgets/widget_builder.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key, required this.themeProvider});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key, required this.themeProvider});
 
   final ThemeProvider themeProvider;
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final EmployeesState _employeesState = EmployeesState()..fetchEmployees();
 
   @override
@@ -23,9 +28,9 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                themeProvider.toggleTheme();
+                widget.themeProvider.toggleTheme();
               },
-              icon: themeProvider.isDarkTheme
+              icon: widget.themeProvider.isDarkTheme
                   ? Icon(Icons.light_mode_rounded)
                   : Icon(Icons.dark_mode_rounded)),
           IconButton(

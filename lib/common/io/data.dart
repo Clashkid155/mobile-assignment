@@ -1,8 +1,26 @@
-class Api{
+import 'package:mobile_assessment/common/io/response.dart';
+
+class Api {
   Api._();
 
+  static Future<StatusResponse> getEmployees() {
+    final apiWaitTime = [3000, 8000, 2000, 5000]..shuffle();
+    return Future.delayed(
+      Duration(milliseconds: apiWaitTime.first),
+      () => StatusResponse.fromJson(successResponse),
+    );
+  }
+
+  static Future<StatusResponse> getError() {
+    final apiWaitTime = [500, 1000, 2000, 5000]..shuffle();
+    return Future.delayed(
+      Duration(milliseconds: apiWaitTime.first),
+      () => StatusResponse.fromJson(errorRexponse),
+    );
+  }
+
   static Map<String, dynamic> errorRexponse = {
-    "statusCode" : 400,
+    "statusCode": 400,
     "message": "An error occurred",
     "errors": [
       {
@@ -22,13 +40,13 @@ class Api{
   };
 
   static Map<String, dynamic> successResponse = {
-    "statusCode" : 200,
+    "statusCode": 200,
     "message": "Successful!",
     "errors": null,
     "data": [
       {
-        "id" : 66,
-        "first_name" : "Jonathan",
+        "id": 66,
+        "first_name": "Jonathan",
         "last_name": "Strange",
         "designation": "Custoner Relations",
         "level": 1,
@@ -37,8 +55,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 1,
-        "first_name" : "Abigail",
+        "id": 1,
+        "first_name": "Abigail",
         "last_name": "Abernathy",
         "designation": "Custoner Relations",
         "level": 0,
@@ -47,8 +65,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 85,
-        "first_name" : "John",
+        "id": 85,
+        "first_name": "John",
         "last_name": "Doe",
         "designation": "Legal",
         "level": 3,
@@ -57,8 +75,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 30,
-        "first_name" : "Rachel",
+        "id": 30,
+        "first_name": "Rachel",
         "last_name": "Hives",
         "designation": "Tech",
         "level": 2,
@@ -67,8 +85,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 4,
-        "first_name" : "Robert",
+        "id": 4,
+        "first_name": "Robert",
         "last_name": "Mann",
         "designation": "Custoner Relations",
         "level": 0,
@@ -77,8 +95,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 17,
-        "first_name" : "Robert",
+        "id": 17,
+        "first_name": "Robert",
         "last_name": "Mannilow",
         "designation": "Human Resources",
         "level": 2,
@@ -87,8 +105,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 114,
-        "first_name" : "Ben",
+        "id": 114,
+        "first_name": "Ben",
         "last_name": "Angel",
         "designation": "Human Resouces",
         "level": 1,
@@ -97,8 +115,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 123,
-        "first_name" : "Ben",
+        "id": 123,
+        "first_name": "Ben",
         "last_name": "Franklin",
         "designation": "Legal",
         "level": 1,
@@ -107,8 +125,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 14,
-        "first_name" : "Bob",
+        "id": 14,
+        "first_name": "Bob",
         "last_name": "Timson",
         "designation": "Tech",
         "level": 3,
@@ -117,8 +135,8 @@ class Api{
         "employment_status": 1
       },
       {
-        "id" : 18,
-        "first_name" : "Ben",
+        "id": 18,
+        "first_name": "Ben",
         "last_name": "Angel",
         "designation": "Customer Relations",
         "level": 0,

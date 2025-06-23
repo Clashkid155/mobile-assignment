@@ -9,18 +9,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  cupertino_icons: ^1.0.2
-  google_fonts:
-  json_annotation: ^4.8.1
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  json_annotation: ^4.9.0
+  skeletonizer: ^2.0.1
+  sembast: ^3.8.5+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
-  json_serializable:
-  build_runner:
+  flutter_lints: ^6.0.0
+  json_serializable: ^6.9.5
+  build_runner: ^2.5.3
 
 #flutter_icons:
 #  ios: true

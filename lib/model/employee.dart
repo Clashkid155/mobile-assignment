@@ -76,6 +76,19 @@ class Employee {
   Map<String, dynamic> toJson() => _$EmployeeToJson(this);
 }
 
+enum Designation {
+  customerRelations(label: 'Customer Relations'),
+  legal(label: 'Legal'),
+  tech(label: 'Tech'),
+  humanResources(label: 'Human Resources');
+
+  const Designation({
+    required this.label,
+  });
+
+  final String label;
+}
+
 enum EmploymentStatus {
   promoted(color: Colors.green, label: 'Promoted'),
   notPromoted(color: Colors.blue, label: 'Not Promoted'),

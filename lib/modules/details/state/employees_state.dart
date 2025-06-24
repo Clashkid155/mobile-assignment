@@ -79,6 +79,24 @@ class EmployeesState with ChangeNotifier {
     }
   }
 
+  void searchByNameOrDesignation(String query) {
+    /* filterName = query;
+    if (query.isEmpty) {
+      // If search query is empty, show all employees or apply existing filters
+      filterEmployees();
+      return;
+    }*/
+    _filteredEmployees = _employees.where((employee) {
+      final nameMatch =
+          employee.fullName.toLowerCase().contains(query.toLowerCase());
+      final designationMatch =
+          employee.designation.toLowerCase().contains(query.toLowerCase());
+      return nameMatch || designationMatch;
+    }).toList();
+    // isFilterActive = true;
+    notifyListeners();
+  }
+
   void filterEmployees() {
     if (filterActive()) return;
     _filteredEmployees = List.from(_employees);

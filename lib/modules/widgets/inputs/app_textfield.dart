@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../details/state/employees_state.dart';
+
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final String labelText;
@@ -50,7 +52,7 @@ class CustomTextField extends StatelessWidget {
               enabled: !isDisabled,
               obscureText: isPassword,
               validator: validator,
-              onSaved: onSaved!,
+              // onSaved: onSaved!,
               onChanged: onChanged,
               style: const TextStyle(color: Colors.black, fontSize: 14),
               cursorColor: Theme.of(context).highlightColor,
@@ -100,6 +102,47 @@ class CustomTextField extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.black)),
               ),
             ),
+    );
+  }
+}
+
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({super.key, required this.employeesState});
+
+  final EmployeesState employeesState;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onChanged: (value) {
+        employeesState.searchByNameOrDesignation(value);
+      },
+      decoration: InputDecoration(
+        hintText: "Search",
+        prefixIcon: Icon(Icons.search),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white54
+                : Colors.black54,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -16,6 +16,8 @@ class EmployeeTile extends StatelessWidget {
           width: 50,
           child: InitialIcon(initials: employee.avatarInitials)),
       onTap: onTap,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(10)),
       // tileColor: Colors.orangeAccent,
       tileColor: Theme.of(context).secondaryHeaderColor,
       title: Text(employee.fullName),

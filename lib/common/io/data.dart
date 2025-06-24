@@ -4,7 +4,7 @@ class Api {
   Api._();
 
   static Future<StatusResponse> getEmployees() {
-    final apiWaitTime = [3000, 8000, 2000, 5000]..shuffle();
+    final apiWaitTime = [500, 1000, 2000, 5000]..shuffle();
     return Future.delayed(
       Duration(milliseconds: apiWaitTime.first),
       () => StatusResponse.fromJson(successResponse),
@@ -48,7 +48,7 @@ class Api {
         "id": 66,
         "first_name": "Jonathan",
         "last_name": "Strange",
-        "designation": "Custoner Relations",
+        "designation": "Customer Relations",
         "level": 1,
         "productivity_score": 78.0,
         "current_salary": "100,000",
@@ -58,7 +58,7 @@ class Api {
         "id": 1,
         "first_name": "Abigail",
         "last_name": "Abernathy",
-        "designation": "Custoner Relations",
+        "designation": "Customer Relations",
         "level": 0,
         "productivity_score": 45.0,
         "current_salary": "70,000",
@@ -88,7 +88,7 @@ class Api {
         "id": 4,
         "first_name": "Robert",
         "last_name": "Mann",
-        "designation": "Custoner Relations",
+        "designation": "Customer Relations",
         "level": 0,
         "productivity_score": 31.0,
         "current_salary": "70,000",
@@ -108,7 +108,7 @@ class Api {
         "id": 114,
         "first_name": "Ben",
         "last_name": "Angel",
-        "designation": "Human Resouces",
+        "designation": "Human Resources",
         "level": 1,
         "productivity_score": 69.0,
         "current_salary": "100,000",

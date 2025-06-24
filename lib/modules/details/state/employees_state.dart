@@ -6,14 +6,55 @@ import 'package:mobile_assessment/model/errors_response.dart';
 
 class EmployeesState with ChangeNotifier {
   bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
-
   List<Employee> _employees = [];
   List<Employee> _filteredEmployees = [];
   StatusResponse? _response;
+  String filterName = "";
+  bool isFilterActive = false;
+
+  // Getters
+  bool get isLoading => _isLoading;
+
+  List<Employee> get employees => _filteredEmployees;
 
   StatusResponse? get response => _response;
+  List<bool> checkedDesignation =
+      List<bool>.filled(Designation.values.length, false);
+
+  // List<int> level = [0, 1, 2, 3, 4, 5];
+  List<bool> checkedLevel = List<bool>.filled(6, false); //[];
+
+  List getValue(List checked, {bool isDesignation = false}) {
+    final List des = [];
+    for (int i = 0; i < checked.length; i++) {
+      if (checked[i]) {
+        des.add(isDesignation ? Designation.values[i].label : i);
+      }
+    }
+    return des;
+  }
+
+  void clearFilter() {
+    filterName = "";
+    checkedDesignation = List<bool>.filled(Designation.values.length, false);
+    checkedLevel = List<bool>.filled(6, false);
+    isFilterActive = false;
+    _filteredEmployees = List.from(_employees);
+    notifyListeners();
+  }
+
+  bool filterActive() {
+    if (filterName.isEmpty &&
+        checkedDesignation.every(
+          (element) => element == false,
+        ) &&
+        checkedLevel.every(
+          (element) => element == false,
+        )) {
+      return true;
+    }
+    return false;
+  }
 
   Future<void> fetchEmployees() async {
     _isLoading = true;
@@ -38,32 +79,84 @@ class EmployeesState with ChangeNotifier {
     }
   }
 
-  void filterEmployees({String? name, int? level, String? designation}) {
+  void filterEmployees() {
+    if (filterActive()) return;
+    _filteredEmployees = List.from(_employees);
+
+    if (filterName.isNotEmpty) {
+      _filteredEmployees = _filteredEmployees
+          .where((employee) => (employee.fullName)
+              .toLowerCase()
+              .contains(filterName.toLowerCase()))
+          .toList();
+    }
+
+    final levels = getValue(checkedLevel).cast<int>();
+    if (levels.isNotEmpty) {
+      _filteredEmployees = _filteredEmployees
+          .where((employee) => levels.contains(employee.level))
+          .toList();
+    }
+    final designations =
+        getValue(checkedDesignation, isDesignation: true).cast<String>();
+    if (designations.isNotEmpty) {
+      final lowerCaseDesignations =
+          designations.map((d) => d.toLowerCase()).toList();
+      _filteredEmployees = _filteredEmployees.where((employee) {
+        if (employee.designation.isEmpty) {
+          return false;
+        }
+        // Check if any of the provided designations are contained in the employee's designation
+        // This allows for partial matches as well as full matches.
+        // For an exact match of one of the designations, you would use:
+        // return lowerCaseDesignations.contains(employee.designation!.toLowerCase());
+        return lowerCaseDesignations.any((d) => (employee.designation ?? '')
+            .toLowerCase()
+            .contains(d.toLowerCase()));
+      }).toList();
+    }
+    isFilterActive = true;
+    notifyListeners();
+  }
+/*
+  void filterEmployees({
+    String? name,
+    List<int>? levels,
+    List<String>? designations,
+  }) {
     _filteredEmployees = List.from(_employees); // Start with all employees
 
     if (name != null && name.isNotEmpty) {
       _filteredEmployees = _filteredEmployees
-          .where((employee) =>
-              employee.fullName?.toLowerCase().contains(name.toLowerCase()) ??
-              false)
+          .where((employee) => (employee.fullName ?? '')
+              .toLowerCase()
+              .contains(name.toLowerCase()))
           .toList();
     }
 
-    if (level != null) {
+    if (levels != null && levels.isNotEmpty) {
       _filteredEmployees = _filteredEmployees
-          .where((employee) => employee.level == level ?? false)
+          .where((employee) => levels.contains(employee.level))
           .toList();
     }
 
-    if (designation != null && designation.isNotEmpty) {
-      _filteredEmployees = _filteredEmployees
-          .where((employee) =>
-              employee.designation
-                  ?.toLowerCase()
-                  .contains(designation.toLowerCase()) ??
-              false)
-          .toList();
+    if (designations != null && designations.isNotEmpty) {
+      final lowerCaseDesignations =
+          designations.map((d) => d.toLowerCase()).toList();
+      _filteredEmployees = _filteredEmployees.where((employee) {
+        if (employee.designation.isEmpty) {
+          return false;
+        }
+        // Check if any of the provided designations are contained in the employee's designation
+        // This allows for partial matches as well as full matches.
+        // For an exact match of one of the designations, you would use:
+        // return lowerCaseDesignations.contains(employee.designation!.toLowerCase());
+        return lowerCaseDesignations.any((d) => (employee.designation ?? '')
+            .toLowerCase()
+            .contains(d.toLowerCase()));
+      }).toList();
     }
+
     notifyListeners();
-  }
+  }*/
 }

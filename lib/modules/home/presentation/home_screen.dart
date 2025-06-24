@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_assessment/common/context_util.dart';
 import 'package:mobile_assessment/common/theme/app_theme.dart';
 import 'package:mobile_assessment/modules/details/presentation/details_screen.dart';
+import 'package:mobile_assessment/modules/home/bottom_modal.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../details/state/employees_state.dart';
@@ -67,34 +70,57 @@ class _HomeScreenState extends State<HomeScreen> {
               widgetBuilder: (value) {
                 return Column(
                   children: [
-                    SizedBox(
+                    Container(
                       height: 80,
-                      child: Row(
-                        spacing: 8,
-                        children: [
-                          Container(
-                            width: 250,
-                            // color: Colors.green,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return Container(
-                                      height: 200,
-                                    );
-                                  },
-                                );
-                              },
-                              icon: Icon(Icons.filter_list_rounded))
-                        ],
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 8,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceContainer,
+                                  borderRadius:
+                                      BorderRadiusGeometry.circular(10),
+                                  border: Border.all(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  )),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return BottomModal(
+                                        employeesState: _employeesState,
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: Icon(Icons.filter_list_rounded))
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
                       child: ListView.separated(
+                        shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          final currentEmployee = value!.employees[index];
+                          // final currentEmployee = value!.employees[index];
+                          final currentEmployee =
+                              _employeesState.employees[index];
+
                           return EmployeeTile(
                             onTap: () => context
                                 .push(DetailsScreen(employee: currentEmployee)),
@@ -104,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         separatorBuilder: (context, index) => SizedBox(
                           height: 8,
                         ),
-                        itemCount: value?.employees.length ?? 0,
+                        itemCount: _employeesState.employees.length ?? 0,
                       ),
                     ),
                   ],

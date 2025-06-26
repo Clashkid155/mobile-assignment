@@ -1,13 +1,23 @@
+import 'package:mobile_assessment/common/database.dart';
 import 'package:mobile_assessment/common/io/response.dart';
 
 class Api {
   Api._();
 
-  static Future<StatusResponse> getEmployees() {
+  static Future<StatusResponse> getEmployees() async {
     final apiWaitTime = [500, 1000, 2000, 5000]..shuffle();
-    return Future.delayed(
-      Duration(milliseconds: apiWaitTime.first),
-      () => StatusResponse.fromJson(successResponse),
+    final emp = await AppDatabase.getEmployees();
+    if (emp.isEmpty) {
+      return Future.delayed(
+        Duration(milliseconds: apiWaitTime.first),
+        () => StatusResponse.fromJson(successResponse),
+      );
+    }
+    return Future.value(
+      StatusResponse(
+          message: "From databases",
+          errors: null,
+          data: SuccessDataResponse(emp)),
     );
   }
 

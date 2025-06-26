@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_assessment/model/employee.dart';
 import 'package:mobile_assessment/modules/details/state/employees_state.dart';
 
-import '../widgets/inputs/app_textfield.dart';
-
 class BottomModal extends StatefulWidget {
   const BottomModal({super.key, required this.employeesState});
 

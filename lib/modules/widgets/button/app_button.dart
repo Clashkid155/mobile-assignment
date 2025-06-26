@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element_parameter
+
 import 'package:flutter/material.dart';
 
 class _AppButton extends StatefulWidget {
@@ -6,14 +8,14 @@ class _AppButton extends StatefulWidget {
   final bool isLoading;
   final bool isPrimary;
   final bool isActive;
+
   const _AppButton(
-      {Key? key,
+      {super.key,
       required this.onTap,
       required this.buttonText,
       this.isLoading = false,
       this.isPrimary = true,
-      this.isActive = true})
-      : super(key: key);
+      this.isActive = true});
 
   @override
   State<_AppButton> createState() => _AppButtonState();
@@ -39,7 +41,7 @@ class _AppButtonState extends State<_AppButton> {
             color: widget.isActive
                 ? widget.isPrimary
                     ? Theme.of(context).primaryColor
-                    : themeData.colorScheme.background
+                    : themeData.colorScheme.surface
                 : Colors.grey,
             borderRadius: BorderRadius.circular(6),
           ),
@@ -60,14 +62,14 @@ class _AppTextButton extends StatefulWidget {
   final bool isLoading;
   final bool isPrimary;
   final bool isActive;
+
   const _AppTextButton(
-      {Key? key,
+      {super.key,
       required this.onTap,
       required this.buttonText,
       this.isLoading = false,
       this.isPrimary = true,
-      this.isActive = true})
-      : super(key: key);
+      this.isActive = true});
 
   @override
   State<_AppTextButton> createState() => _AppTextButtonState();

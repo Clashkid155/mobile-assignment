@@ -128,53 +128,11 @@ class EmployeesState with ChangeNotifier {
         // This allows for partial matches as well as full matches.
         // For an exact match of one of the designations, you would use:
         // return lowerCaseDesignations.contains(employee.designation!.toLowerCase());
-        return lowerCaseDesignations.any((d) => (employee.designation ?? '')
-            .toLowerCase()
-            .contains(d.toLowerCase()));
+        return lowerCaseDesignations.any((d) =>
+            (employee.designation).toLowerCase().contains(d.toLowerCase()));
       }).toList();
     }
     isFilterActive = true;
     notifyListeners();
   }
-/*
-  void filterEmployees({
-    String? name,
-    List<int>? levels,
-    List<String>? designations,
-  }) {
-    _filteredEmployees = List.from(_employees); // Start with all employees
-
-    if (name != null && name.isNotEmpty) {
-      _filteredEmployees = _filteredEmployees
-          .where((employee) => (employee.fullName ?? '')
-              .toLowerCase()
-              .contains(name.toLowerCase()))
-          .toList();
-    }
-
-    if (levels != null && levels.isNotEmpty) {
-      _filteredEmployees = _filteredEmployees
-          .where((employee) => levels.contains(employee.level))
-          .toList();
-    }
-
-    if (designations != null && designations.isNotEmpty) {
-      final lowerCaseDesignations =
-          designations.map((d) => d.toLowerCase()).toList();
-      _filteredEmployees = _filteredEmployees.where((employee) {
-        if (employee.designation.isEmpty) {
-          return false;
-        }
-        // Check if any of the provided designations are contained in the employee's designation
-        // This allows for partial matches as well as full matches.
-        // For an exact match of one of the designations, you would use:
-        // return lowerCaseDesignations.contains(employee.designation!.toLowerCase());
-        return lowerCaseDesignations.any((d) => (employee.designation ?? '')
-            .toLowerCase()
-            .contains(d.toLowerCase()));
-      }).toList();
-    }
-
-    notifyListeners();
-  }*/
 }

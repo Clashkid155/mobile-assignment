@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mobile_assessment/common/context_util.dart';
 import 'package:mobile_assessment/common/theme/app_theme.dart';
 import 'package:mobile_assessment/modules/details/presentation/details_screen.dart';
 import 'package:mobile_assessment/modules/home/bottom_modal.dart';
+import 'package:mobile_assessment/modules/new_employee/presentation/new_employee_screen.dart';
 import 'package:mobile_assessment/modules/widgets/inputs/app_textfield.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -31,16 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Employees"),
         actions: [
           IconButton(
-              onPressed: () {
-                widget.themeProvider.toggleTheme();
-              },
+              onPressed: () => widget.themeProvider.toggleTheme(),
               icon: widget.themeProvider.isDarkTheme
                   ? Icon(Icons.light_mode_rounded)
                   : Icon(Icons.dark_mode_rounded)),
           IconButton(
-              onPressed: () {
-                // context.push(DetailsScreen());
-              },
+              onPressed: () => context.push(NewEmployeeScreen(
+                    employeesState: _employeesState,
+                  )),
               icon: Icon(Icons.add_circle_outline_rounded))
         ],
       ),

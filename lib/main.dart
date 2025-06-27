@@ -8,7 +8,7 @@ import 'package:mobile_assessment/root_widget.dart';
 Future<void> main() async {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    AppDatabase.init();
+    await AppDatabase.init();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     runApp(const MobileAssessmentApp(
       isDebug: true,

@@ -12,7 +12,7 @@ class AppDatabase {
   static late final Future<Database> _database;
   static final String _tableName = 'employee';
 
-  static void init() async {
+  static Future<void> init() async {
     _database = openDatabase(
       join(await getDatabasesPath(), 'employee.db'),
       // When the database is first created, create a table to store employees.

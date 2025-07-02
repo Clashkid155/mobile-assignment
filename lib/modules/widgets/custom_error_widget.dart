@@ -16,9 +16,12 @@ class CustomErrorWidget extends StatefulWidget {
 class _CustomErrorWidgetState extends State<CustomErrorWidget> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height,
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(

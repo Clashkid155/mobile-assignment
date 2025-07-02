@@ -1,11 +1,19 @@
+import 'dart:math';
+
 import 'package:mobile_assessment/common/database.dart';
 import 'package:mobile_assessment/common/io/response.dart';
 
 class Api {
   Api._();
 
+  static final Random _random = Random();
+
   static Future<StatusResponse> getEmployees() async {
+    if (_random.nextBool()) {
+      return getError();
+    }
     final apiWaitTime = [500, 1000, 2000, 5000]..shuffle();
+
     final emp = await AppDatabase.getEmployees();
     if (emp.isEmpty) {
       return Future.delayed(
@@ -13,6 +21,7 @@ class Api {
         () => StatusResponse.fromJson(successResponse),
       );
     }
+
     return Future.value(
       StatusResponse(
           message: "From databases",
@@ -22,7 +31,7 @@ class Api {
   }
 
   static Future<StatusResponse> getError() {
-    final apiWaitTime = [500, 1000, 2000, 5000]..shuffle();
+    final apiWaitTime = [500, 1000, 2000, 5000]..shuffle(_random);
     return Future.delayed(
       Duration(milliseconds: apiWaitTime.first),
       () => StatusResponse.fromJson(errorRexponse),

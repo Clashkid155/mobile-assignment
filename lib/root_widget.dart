@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_assessment/common/theme/app_theme.dart';
 import 'package:mobile_assessment/modules/home/presentation/home_screen.dart';
@@ -19,8 +20,12 @@ class _MobileAssessmentAppState extends State<MobileAssessmentApp> {
         listenable: themeProvider,
         builder: (context, child) {
           return MaterialApp(
+            // useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
             debugShowCheckedModeBanner: widget.isDebug,
-            theme: themeProvider.theme, // AppTheme.darkTheme(),
+            theme: themeProvider.theme,
+            // AppTheme.darkTheme(),
             home: HomeScreen(
               themeProvider: themeProvider,
             ),
